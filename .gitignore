@@ -1,0 +1,21 @@
+# OSX
+#
+.DS_Store
+*.hprof
+
+# node.js
+#
+dist/
+node_modules/
+build/
+npm-debug.log
+yarn-error.log
+
+# Bundle artifact
+*.jsbundle
+
+
+.env.*
+
+eve-dev.pem
+eve-stg.pem
