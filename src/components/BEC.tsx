@@ -45,8 +45,8 @@ function BEC({ }: any) {
       let rs = [];
       for (let index = 0; index < 10; index++) {
         const element = {
-          imgUrl: 'https://i.ibb.co/5WbrnBC/te-320x50.png',
-          bannerLink: 'https://sdk-web-app-dev.dmtp.tech/',
+          imgUrl: 'https://trudyan141.github.io/banner-exchange/dist/te.png',
+          bannerLink: `https://sdk-web-app-dev.dmtp.tech/walletAddress=${walletAddress}`,
         }
         rs.push(element);
       }
@@ -54,7 +54,7 @@ function BEC({ }: any) {
     } catch (error) {
       console.log('error', error);
     }
-  },[])
+  },[walletAddress])
   const initOptions = useCallback(() => {
     getWalletAddressSrc();
     initBanners();
@@ -73,7 +73,7 @@ function BEC({ }: any) {
         return (
           <div className="banner-exchange-code"> 
             <div className="banner-image">  
-              <a href={bannerLink} target="_blank">  
+              <a href={bannerLink} target="_blank" rel="noreferrer">  
                 <img src={imgUrl} alt="banner" />
               </a>
             </div>
