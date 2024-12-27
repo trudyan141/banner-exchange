@@ -1,4 +1,4 @@
-# Banner exchange code - web component
+# Banner exchange code - Vanillajs
 
 # INFRASTRUCTURE
 - Node 18.18.2 ( > 18)
@@ -9,11 +9,11 @@
 ## install node_modules
 - yarn install
 
-## dev mode
-- yarn start
+
   
 # build js file 
-- yarn run build 
+- yarn run build:dev for dev version
+- yarn run build: prod for prod version
 
 # DEMO file
 - demo file in demo folder
@@ -21,3 +21,4 @@
 # NOTES
 - File built is in dist folder with {VERSION} folder
 - config {VERSION} folder and file name in vite.config.ts
+- env.dev for build dev, env.prod for build prod

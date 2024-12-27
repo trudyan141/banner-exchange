@@ -1,0 +1,61 @@
+name: "Deploy to S3"
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Deployment target"
+        required: true
+        default: "DEV"
+        type: choice
+        options:
+          - DEV
+          - PROD
+      target_version:
+        description: "Target version (latest or x.y.z)"
+        required: true
+        default: "latest"
+        type: string
+      execution_message:
+        description: "Execution message"
+        required: false
+        default: ""
+        type: string
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::539247467867:role/prod_dmtp-sdk_github
+          role-session-name: github-fe-cd
+          aws-region: ${{ vars[format('{0}_AWS_REGION', inputs.target)] }}
+          
+      - name: Build
+        run: |
+          echo "Building ${{ inputs.target }} ${{ inputs.target_version }}"
+          
+          touch .env
+          echo "VITE_APP_BACKEND_API_URL=${{ vars[format('{0}_VITE_APP_BACKEND_API_URL', inputs.target)] }}" >> .env
+          [ "${{ inputs.target }}" = "DEV" ] && echo "VITE_APP_NODE_ENV=development" >> .env
+          [ "${{ inputs.target }}" = "PROD" ] && echo "VITE_APP_NODE_ENV=production" >> .env
+          cat .env
+          ./build.sh ${{ inputs.target }} ${{ inputs.target_version }}
+
+      - name: Upload build
+        run: |
+          aws s3 sync ./dist/s3/ s3://${{ vars[format('{0}_BUCKET_NAME', inputs.target)] }}
+
+      - name: Delete cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ vars[format('{0}_DISTRIBUTE_ID', inputs.target)] }} --paths "/*"
+

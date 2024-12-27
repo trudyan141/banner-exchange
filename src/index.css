@@ -11,3 +11,263 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.banner-bottom{
+  padding-bottom: 50px;
+}
+.becComponent .banner-container {
+    padding: 12px 16px;
+    border-bottom: 1px solid #E6E6E6;
+    max-height: 122px;
+}
+
+.becComponent .banner-container:last-child {
+    border-bottom: 0;
+}
+
+.becComponent .banner-link {
+    display: flex;
+    text-decoration: none;
+    width:100%;
+}
+
+.becComponent .banner-image {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    margin-right: 16px;
+    border-radius: 12px;
+}
+
+.becComponent .banner-content-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.becComponent .banner-content {
+    width: 100%;
+}
+
+.becComponent .banner-link-title {
+    color: #30323D;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 4px;
+}
+
+.becComponent .banner-link-description {
+    color: #77787E;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    word-break: break-word;
+    margin-bottom: 6px;
+}
+
+.becComponent .banner-link-btn {
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 1px solid #30323D;
+    color: #30323D;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.becComponent .banner-link-btn.active,
+.becComponent .banner-link-btn:hover,
+.becComponent .banner-link-btn:active,
+.becComponent .banner-link-btn:focus {
+    border: 1px solid transparent;
+    background: linear-gradient(90deg, #30323D 0%, #77787E 100%);
+    color: #FFF;
+}
+
+.becComponent .banner-exchange-code {
+    margin-bottom: 8px;
+}
+
+/* Modal for offer-wall */
+.becComponent .banner-offer-wall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    transition: all 0.3s ease;
+    transition-delay: 0.3s;
+}
+
+.becComponent .banner-offer-wall.show {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1000;
+}
+
+.becComponent .banner-offer-wall .offer-waller-container {
+    padding: 0;
+    opacity: 0;
+    width: 100%;
+    height: 88vh;
+    transition-delay: 1s;
+    gap: 8px;
+    transition: width .3s ease, opacity .3s ease, transform .3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    max-width: 480px;
+    width: 480px;
+}
+
+@media screen and (max-width: 767px) {
+    .becComponent .banner-offer-wall .offer-waller-container {
+        padding: 0;
+        height: 100svh;
+        width: 100%;
+    }
+}
+
+.becComponent .banner-offer-wall .ads-list {
+    background: #fff;
+    overflow: auto;
+    margin: 0 auto;
+    height: 100%;
+    min-width: 280px;
+    width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .becComponent .banner-offer-wall .ads-list {
+        width: 100%;
+        margin: none;
+    }
+}
+
+.becComponent .banner-offer-wall .ads-list::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.becComponent .banner-offer-wall .ads-list::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.becComponent .banner-offer-wall .ads-list::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    border: 0px solid #e0e0e0;
+}
+
+@media screen and (max-width: 320px) {
+    .becComponent .banner-offer-wall .ads-list {
+        height: auto;
+        width: 90%;
+        max-width: 327px;
+    }
+}
+
+.becComponent .banner-offer-wall .offer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #30323D;
+    padding: 16px 24px 16px 8px;
+    position: sticky;
+    top: 0px;
+    text-align: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    z-index: 1;
+    
+}
+
+.header-title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.becComponent .close-button {
+    position: absolute;
+    top: 14px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #fff;
+    z-index: 1010; /* Ensure it is above the modal content */
+}
+
+.becComponent .close-button svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff; /* Set the color of the SVG */
+}
+
+.info-icon {
+    cursor: pointer;
+    margin-left: 8px;
+    position: relative;
+}
+
+/* Adjusting tooltip position to be below the info icon */
+.tooltip-info {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 1000;
+    margin-top: 5px;
+    font-size: 12px;
+    left: 8px;
+    top: 40px;
+    max-width: 80%;
+}
+
+
+
+.tooltip-info::before {
+    content: '';
+    position: absolute;
+    bottom: 100%; /* Position the triangle above the tooltip */
+    left: 20px; /* Adjust this to align the triangle with the tooltip */
+    margin-left: -5px; /* Center the triangle */
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent; /* Triangle color pointing up */
+}
+
+.info-icon:hover + .tooltip {
+    display: block;
+}
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.loader{
+    width: 80px;
+    height: 80px;
+}

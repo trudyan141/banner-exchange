@@ -14,7 +14,9 @@ yarn-error.log
 *.jsbundle
 
 
-.env.*
+.env
 
 eve-dev.pem
 eve-stg.pem
+
+dist

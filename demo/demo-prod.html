@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../dist/bec.js?walletAddress=QnLOYksIDhA3MfBLoRL%2ByIa8jRggeovB3NtN3d7LD7g%3D" ></script>
+    <script src="https://bec.apps-network.net/latest/bec.js?walletAddress=QnLOYksIDhA3MfBLoRL%2ByIa8jRggeovB3NtN3d7LD7g%3D" ></script>
     <style> 
         h1{
             text-align: center;
@@ -63,18 +63,18 @@
                     outlineColor: '#3498db'
                 }
             });
-            // add blacklist ads - examples values
-            // if (TE && typeof TE.setBlacklistAds === 'function') {
-            //     TE.setBlacklistAds([
-            //     'SEED App - Mine SEED', // ad name 
-            //     '66ec39da467ed0b3fdea3539', // ad id
-            //     '6724665873652075dc5b388f', // ad id
-            //     '123', // ad name 
-            //     'trung test 3' // ad name
-            //     ]);
-            // } else {
-            //     console.warn("TE.setBlacklistAds function not available");
-            // }
+           // add blacklist ads - examples values
+           if (TE && typeof TE.setBlacklistAds === 'function') {
+                TE.setBlacklistAds([
+                'SEED App - Mine SEED', // ad name 
+                '66ec39da467ed0b3fdea3539', // ad id
+                '6724665873652075dc5b388f', // ad id
+                '123', // ad name 
+                'trung test 3' // ad name
+                ]);
+            } else {
+                console.warn("TE.setBlacklistAds function not available");
+            }
         });
         document.addEventListener('TEAdClicked', function (event) {
             const adInfo = event?.detail;
@@ -82,7 +82,12 @@
             alert('TEAdClicked=> ad: ' + JSON.stringify(adInfo || {}));
         });
         document.addEventListener('DOMContentLoaded', function() {
-
+            // call init TE
+            if (TE && typeof TE.onLoad === 'function') {
+                TE.onLoad()
+            } else {
+                console.error('onLoad is not a function');
+            }
             const openOfferWallButton = document.getElementById('openOfferWallButton');
             openOfferWallButton.addEventListener('click', function() {
                 if (TE && typeof TE.offerWall === 'function') {

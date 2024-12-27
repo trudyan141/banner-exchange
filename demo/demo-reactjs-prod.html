@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snippets - Reactjs Demo</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://bec.apps-network.net/latest/bec.js?walletAddress=QnLOYksIDhA3MfBLoRL%2ByIa8jRggeovB3NtN3d7LD7g%3D" ></script>
+</head>
+<body>
+    <style>
+        #exchangeBanner{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-actions{
+            margin: 120px;
+        }
+        .btn-title{
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        hr{
+            margin: 12px 0;
+        }
+    </style>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        console.log("🚀 ~ useState:", useState)
+        const LandingPage = () => {
+            const [clickId, setClickId] = useState('');
+            useEffect(() => {
+                if (TE && typeof TE.onLoad === 'function') {
+                    TE.onLoad()
+                } else {
+                    console.error('onLoad is not a function');
+                }
+              document.addEventListener('becLoaded', function (event) {
+                TE.configureOfferWallStyle({
+                    topBar: {
+                        backgroundColor: '#2c3e50',
+                        textColor: '#ecf0f1'
+                    },
+                    content: {
+                        backgroundColor: '#34495e',
+                        appNameColor: '#ecf0f1',
+                        appDescriptionColor: '#bdc3c7'
+                    },
+                    button: {
+                        backgroundColor: '#3498db',
+                        textColor: '#ffffff',
+                        highlightedBackgroundColor: '#2980b9',
+                        highlightedTextColor: '#ffffff',
+                        outlineColor: '#3498db'
+                    }
+                });
+                // add blacklist ads - examples values
+                if (TE && typeof TE.setBlacklistAds === 'function') {
+                    TE.setBlacklistAds([
+                    'SEED App - Mine SEED', // ad name 
+                    '66ec39da467ed0b3fdea3539', // ad id
+                    '6724665873652075dc5b388f', // ad id
+                    '123', // ad name 
+                    'trung test 3' // ad name
+                    ]);
+                } else {
+                    console.warn("TE.setBlacklistAds function not available");
+                }
+            });
+            document.addEventListener('TEAdClicked', function (event) {
+                const adInfo = event?.detail;
+                console.log('TEAdClicked',adInfo);
+                alert('TEAdClicked=> ad: ' + JSON.stringify(adInfo || {}));
+            });
+            }, []);
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <div id="exchangeBanner"></div> 
+                    <div className="btn-actions"> 
+                        <div class="btn-title">Open Offer Wall </div>
+                        <button id="openOfferWallButton"  onClick={() =>{
+                            if (TE && typeof TE.offerWall === 'function') {
+                                TE.offerWall();
+                            } else {
+                                console.error('TE is not defined or offerWall is not a function');
+                            }
+                        }}>Open Offer Wall</button>
+                        <hr/>
+                        <div  class="btn-title">Confirm Conversion </div>
+                        <div>Click ID: <input id="clickId" type="text" value={clickId} onChange={(e) => setClickId(e.target.value)}/> </div>
+                        <button id="confirmConversion"  onClick={async () =>{
+                            if (TE && typeof TE.confirmConversion === 'function') {
+                                let params = { click_id: clickId, action: 'PLAY'};
+                                let result = await TE.confirmConversion(params);
+                                console.log("🚀 ~ result confirmConversion:", result)
+                            } else {
+                                console.error('TE is not defined or confirmConversion is not a function');
+                            }
+                        }}>confirm Conversion</button>
+                        <hr/>
+                        <div  class="btn-title">Check User Conversion </div>
+                        <button id="checkUserConversion"  onClick={async() =>{
+                            if (TE && typeof TE.checkUserConversion === 'function') {
+                                let params = {  
+                                    offset: 0,
+                                    limit: 10
+                                };
+                                let result = await TE.checkUserConversion(params);
+                                console.log("🚀 ~ result checkUserConversion:", result)
+                                alert('result: ' + JSON.stringify(result));
+                            } else {
+                                console.error('TE is not defined or checkUserConversion is not a function');
+                            }
+                        }}>check User Conversion</button>
+                    </div>
+                </div>
+            );
+        };
+        ReactDOM.render(<LandingPage />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+
